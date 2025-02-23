@@ -17,7 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
         }
         .card {
             width: 90%;
@@ -135,12 +135,110 @@
             color: #007aff;
         }
 
+        /* QR Code */
+        .qr-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        #qr-code {
+            border: 10px solid white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Live Clock */
+        #clock {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Dark Mode Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-top: 20px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+        }
+        .icons {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .light-icon, .dark-icon {
+            font-size: 18px;
+            transition: opacity 0.3s, transform 0.4s;
+        }
+        .light-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .dark-icon {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        input:checked + .slider .light-icon {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        input:checked + .slider .dark-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        /* Light Mode */
+        .light-mode {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        .light-mode .card {
+            background: white;
+            color: #000;
+        }
+        .light-mode .title {
+            color: #777;
+        }
+        .light-mode .save-contact {
+            background: black;
+            color: white;
+        }
+        .light-mode .button {
+            background: black;
+            color: white;
+        }
+
         /* Dark Mode */
         .dark-mode {
-            background: #1e1e1e;
+            background-color: #333;
+            color: white;
         }
         .dark-mode .card {
-            background: #333;
+            background: #444;
             color: white;
         }
         .dark-mode .title {
@@ -150,50 +248,64 @@
             background: white;
             color: black;
         }
-
-        /* QR Code */
-        .qr-container {
-            margin-top: 20px;
+        .dark-mode .button {
+            background: white;
+            color: black;
         }
-
-        /* Live Clock */
-        #clock {
-            font-size: 16px;
-            margin-bottom: 10px;
+        .dark-mode .button:hover {
+            background: #ddd;
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
 
 <div class="card">
-    <img src="your-image.jpg" alt="Hassan Ahmed" class="profile-img">
+    <!-- Profile Image -->
+    <img src="images/profile.jpg" alt="Hassan Ahmed" class="profile-img">
     <h2>Hassan Ahmed</h2>
     <p class="title">Architecture Engineer | Interior Designer</p>
 
-    <p id="clock"></p>  <!-- Live clock here -->
+    <!-- Live Clock -->
+    <p id="clock"></p>
 
+    <!-- Contact Buttons -->
     <div class="buttons">
         <a href="tel:+201096978258" class="button">📞</a>
         <a href="mailto:Hassan.A.Lasheen@gmail.com" class="button">✉️</a>
     </div>
 
+    <!-- Save Contact -->
     <a href="your-vcf-file.vcf" class="save-contact">Save Contact</a>
 
+    <!-- Social Links -->
     <div class="socials">
-        <a href="https://www.instagram.com/designscape.art"><img src="instagram-icon.png" alt="Instagram"></a>
-        <a href="https://www.linkedin.com/in/hassan--ahmed"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+        <a href="https://www.instagram.com/designscape.art"><img src="images/instagram.png" alt="Instagram"></a>
+        <a href="https://www.linkedin.com/in/hassan--ahmed"><img src="images/linkedin.png" alt="LinkedIn"></a>
+        <a href="https://www.behance.net/hassanua"><img src="images/behance.png" alt="Behance"></a>
+        <a href="http://wa.me/+201096978258"><img src="images/whatsapp.png" alt="WhatsApp"></a>
     </div>
 
+    <!-- Instapay Section -->
     <div class="instapay">
-        <img src="instapay-logo.png" alt="Instapay" width="100">
+        <img src="images/instapay.png" alt="Instapay" width="100">
         <p><a href="https://ipn.eg/S/hassan.a.lasheen@instapay">Pay via Instapay</a></p>
     </div>
 
+    <!-- QR Code -->
     <div class="qr-container">
         <canvas id="qr-code"></canvas>
     </div>
 
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <!-- Dark Mode Toggle -->
+    <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider">
+            <span class="icons">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </span>
+        </span>
+    </label>
 </div>
 
 <script>
@@ -211,22 +323,40 @@
     updateClock();
 
     // Dark Mode Toggle with Local Storage
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        let isDarkMode = document.body.classList.contains('dark-mode');
-        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+        } else {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+        }
+    });
+
+    // Set initial theme based on user preference or default to light mode
+    if (localStorage.getItem('theme') === 'dark') {
+        themeToggle.checked = true;
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.add('light-mode');
     }
 
-    // Apply saved theme preference
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-    }
+    // Save theme preference to localStorage
+    themeToggle.addEventListener('change', function() {
+        localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+    });
 
     // QR Code Generation
     let qr = new QRious({
         element: document.getElementById('qr-code'),
         value: "https://www.instagram.com/designscape.art",
-        size: 150
+        size: 150,
+        background: 'white',
+        foreground: 'black',
+        level: 'H'
     });
 </script>
 
