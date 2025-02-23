@@ -43,14 +43,21 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
     border: 3px solid black;
     transition: transform 0.3s ease;
     display: block;
     margin: 0 auto;
     max-width: 100%;
     aspect-ratio: 1 / 1;
+    position: relative;
 }
+        @media (max-width: 480px) {
+    .profile-img {
+        object-position: top;
+    }
+}
+
 
         .profile-img:hover {
             transform: scale(1.1);
