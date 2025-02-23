@@ -57,7 +57,6 @@
             font-size: 14px;
             color: #777;
         }
-
         /* Contact Buttons */
         .buttons {
             display: flex;
@@ -83,7 +82,6 @@
             background: #444;
             transform: scale(1.1);
         }
-
         /* Save Contact */
         .save-contact {
             display: block;
@@ -100,7 +98,6 @@
         .save-contact:hover {
             background: #222;
         }
-
         /* Social Links */
         .socials {
             display: flex;
@@ -116,7 +113,6 @@
         .socials a img:hover {
             transform: scale(1.2);
         }
-
         /* Instapay Section */
         .instapay {
             background: #eee;
@@ -134,25 +130,25 @@
         .instapay a:hover {
             color: #007aff;
         }
-
         /* QR Code */
         .qr-container {
             margin-top: 20px;
             display: flex;
             justify-content: center;
+            position: relative; /* Added to ensure proper positioning */
         }
         #qr-code {
             border: 10px solid white;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 150px; /* Set a fixed width */
+            height: 150px; /* Set a fixed height */
         }
-
         /* Live Clock */
         #clock {
             font-size: 16px;
             margin-bottom: 10px;
         }
-
         /* Dark Mode Toggle Switch */
         .switch {
             position: relative;
@@ -210,7 +206,6 @@
         input:checked + .slider {
             background-color: #2196F3;
         }
-
         /* Light Mode */
         .light-mode {
             background-color: #f0f0f0;
@@ -231,7 +226,6 @@
             background: black;
             color: white;
         }
-
         /* Dark Mode */
         .dark-mode {
             background-color: #333;
@@ -258,37 +252,29 @@
     </style>
 </head>
 <body class="light-mode">
-
 <div class="card">
     <img src="your-image.jpg" alt="Hassan Ahmed" class="profile-img">
     <h2>Hassan Ahmed</h2>
     <p class="title">Architecture Engineer | Interior Designer</p>
-
     <p id="clock"></p>  <!-- Live clock here -->
-
     <div class="buttons">
         <a href="tel:+201096978258" class="button">📞</a>
         <a href="mailto:Hassan.A.Lasheen@gmail.com" class="button">✉️</a>
     </div>
-
     <a href="your-vcf-file.vcf" class="save-contact">Save Contact</a>
-
     <div class="socials">
         <a href="https://www.instagram.com/designscape.art"><img src="instagram-icon.png" alt="Instagram"></a>
         <a href="https://www.linkedin.com/in/hassan--ahmed"><img src="linkedin-icon.png" alt="LinkedIn"></a>
         <a href="https://www.behance.net/hassanua"><img src="behance-icon.png" alt="Behance"></a>
         <a href="http://wa.me/+201096978258"><img src="whatsapp-icon.png" alt="WhatsApp"></a>
     </div>
-
     <div class="instapay">
         <img src="instapay-logo.png" alt="Instapay" width="100">
         <p><a href="https://ipn.eg/S/hassan.a.lasheen/instapay/057HGn">Pay via Instapay</a></p>
     </div>
-
     <div class="qr-container">
         <canvas id="qr-code"></canvas>
     </div>
-
     <!-- Dark Mode Toggle -->
     <label class="switch">
         <input type="checkbox" id="theme-toggle">
@@ -300,7 +286,6 @@
         </span>
     </label>
 </div>
-
 <script>
     // Live Clock
     function updateClock() {
@@ -314,11 +299,9 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
-
     // Dark Mode Toggle with Local Storage
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
-
     themeToggle.addEventListener('change', function() {
         if (this.checked) {
             body.classList.add('dark-mode');
@@ -328,7 +311,6 @@
             body.classList.remove('dark-mode');
         }
     });
-
     // Set initial theme based on user preference or default to light mode
     if (localStorage.getItem('theme') === 'dark') {
         themeToggle.checked = true;
@@ -336,12 +318,10 @@
     } else {
         body.classList.add('light-mode');
     }
-
     // Save theme preference to localStorage
     themeToggle.addEventListener('change', function() {
         localStorage.setItem('theme', this.checked ? 'dark' : 'light');
     });
-
     // QR Code Generation
     let qr = new QRious({
         element: document.getElementById('qr-code'),
@@ -352,6 +332,5 @@
         level: 'H'
     });
 </script>
-
 </body>
 </html>
