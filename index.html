@@ -39,18 +39,26 @@
                 opacity: 1;
             }
         }
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid black;
-            transition: transform 0.3s ease;
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            aspect-ratio: 1 / 1;
-        }
+.profile-img {
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid black;
+    transition: transform 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure proper scaling on smaller screens */
+@media (max-width: 480px) {
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
         .profile-img:hover {
             transform: scale(1.1);
         }
